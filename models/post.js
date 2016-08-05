@@ -16,15 +16,26 @@ var postSchema = new Schema({
     type: Date,
     required: true
   },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
+  author: String,
+  //   type: String
+  //   // type: mongoose.Schema.Types.ObjectId,
+  //   // ref: 'User',
+  //   // required: true
+  // },
   updated: {
     type: Date,
     required: true
   }
+});
+
+postSchema.pre('findOneAndUpdate', function(){
+  this.update({},
+    {
+      $set:
+      {
+        updated: new Date()
+    }
+  });
 });
 
 var Post = mongoose.model('Post', postSchema);

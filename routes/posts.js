@@ -26,8 +26,17 @@ function getPosts(req, res, next){
 }
 
 function getSpecificPosts(req, res, next){
-  console.log('get a particular post');
-  next();
+  Post.findOne({ _id: req.params.postId}, req.body, function(err, post){
+      if(err){
+        res.status(500).json({
+          msg: err
+        });
+      } else {
+        res.status(200).json({
+          post: post
+        });
+      }
+  });
 }
 
 function createPosts(req, res, next){

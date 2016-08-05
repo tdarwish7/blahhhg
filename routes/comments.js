@@ -53,11 +53,29 @@ function createComment(req, res, next){
 }
 
 function updateComment(req, res, next){
-  console.log('update your comments');
-  next();
+  Comment.findOneAndUpdate({ _id: req.params.commentId }, req.body, function(err, oldComment){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        oldComment: oldComment
+      });
+    }
+  });
 }
 
 function deleteComment(req, res, next){
-  console.log('delete your comments');
-  next();
+  Comment.remove({ _id: req.params.commentId}, function(err, oldComment){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        oldComment: oldComment
+      });
+    }
+  });
 }

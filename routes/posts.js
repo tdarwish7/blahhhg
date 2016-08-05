@@ -75,6 +75,15 @@ function updatePost(req, res, next){
 }
 
 function deletePost(req, res, next){
-  console.log('delete a Post');
-  next();
+  Post.remove({ _id: req.params.postId}, function(err, oldPost){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        oldPost: oldPost
+      });
+    }
+  });
 }

@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var commentRouter = require('./routes/comments.js');
 var postRouter = require('./routes/posts.js');
+var userRouter = require('./routes/users.js');
 var mongoose = require('mongoose');
 
 
@@ -16,6 +17,7 @@ server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors());
 server.use(commentRouter);
 server.use(postRouter);
+server.use(userRouter);
 
 server.get('/', function(req, res){
   res.send('hello!');
